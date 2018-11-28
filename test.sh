@@ -1,6 +1,6 @@
 #!/bin/sh
 
-instance_id=$(aws ec2 run-instances --image-id ami-cfe4b2b0 --count 1 --instance-type t2.micro --key-name *********** --security-group-ids sg-8a433ec0 --subnet-id subnet-0350260c --user-data file://install-server.txt --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=***********},{Key=Owner,Value=***********}]' 'ResourceType=volume,Tags=[{Key=Name,Value=***********},{Key=Owner,Value=***********}]' --output text --query 'Instances[*].InstanceId' )
+instance_id=$(aws ec2 run-instances --image-id ami-***** --count 1 --instance-type t2.micro --key-name *********** --security-group-ids sg-8a433ec0 --subnet-id subnet-0350260c --user-data file://install-server.txt --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=***********},{Key=Owner,Value=***********}]' 'ResourceType=volume,Tags=[{Key=Name,Value=***********},{Key=Owner,Value=***********}]' --output text --query 'Instances[*].InstanceId' )
 
 echo “The Instance ID is ”, $instance_id
 
@@ -21,7 +21,7 @@ echo "The Public DNS is ",${public_dns}
 echo 'ssh -i ***********.pem "ec2-user@${public_dns}"'
 
 #Creating a classis load balancer 
-load_balancer=$(aws elb create-load-balancer --load-balancer-name *********** --listeners "Protocol=HTTP,LoadBalancerPort=80,InstanceProtocol=HTTP,InstancePort=80" --subnets subnet-0350260c --security-groups sg-8a433ec0)
+load_balancer=$(aws elb create-load-balancer --load-balancer-name *********** --listeners "Protocol=HTTP,LoadBalancerPort=80,InstanceProtocol=HTTP,InstancePort=80" --subnets subnet-***** --security-groups sg-******)
 
 load_balancer=cand$(echo $load_balance | grep -oP '(?<=cand).*' )
 load_balancer=$(echo ${load_balancer::-1})
